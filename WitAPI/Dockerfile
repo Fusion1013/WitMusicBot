@@ -13,7 +13,7 @@ WORKDIR /app
 
 COPY --from=build /app/target/wit-*.jar app.jar
 
-EXPOSE 8080
+EXPOSE 8081
 EXPOSE 5433
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

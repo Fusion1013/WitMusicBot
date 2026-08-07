@@ -6,6 +6,12 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    {
+        provide: Configuration,
+        useFactory: () => new Configuration({
+            basePath: '/app'
+        })
+    }
   ]
 };
