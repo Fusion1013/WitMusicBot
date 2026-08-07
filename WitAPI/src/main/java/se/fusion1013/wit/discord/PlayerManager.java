@@ -38,7 +38,7 @@ public class PlayerManager implements IAudioPlayer {
 
     private PlayerManager() {
         this.playerManager = new DefaultAudioPlayerManager();
-        var ytSource = new YoutubeAudioSourceManager(true, new Music(), new AndroidVr(), new Web(), new WebEmbedded(), new Tv());
+        var ytSource = new YoutubeAudioSourceManager(true, new Tv());
 
         String oauthToken = System.getenv("YOUTUBE_REFRESH_TOKEN");
 
