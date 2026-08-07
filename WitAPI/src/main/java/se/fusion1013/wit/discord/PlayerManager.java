@@ -38,6 +38,7 @@ public class PlayerManager implements IAudioPlayer {
     private PlayerManager() {
         this.playerManager = new DefaultAudioPlayerManager();
         var ytSource = new YoutubeAudioSourceManager(true);
+        ytSource.useOauth2("oauth.json", false);
         playerManager.registerSourceManager(ytSource);
         AudioSourceManagers.registerLocalSource(playerManager); // important for local files!
         this.audioPlayer = playerManager.createPlayer();
@@ -85,6 +86,7 @@ public class PlayerManager implements IAudioPlayer {
             @Override
             public void loadFailed(FriendlyException e) {
                 System.out.println("Load failed: " + e.getMessage());
+                e.printStackTrace();
                 publishTrackDone();
             }
         });
