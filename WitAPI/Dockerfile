@@ -1,9 +1,17 @@
-FROM eclipse-temurin:25-jre
+FROM maven:3.9.11-eclipse-temurin-25 AS build
 LABEL authors="kiwi"
 
 WORKDIR /app
 
-COPY target/wit-*.jar app.jar
+COPY pom.xml .
+COPY src src
+RUN mvn clean package
+
+FROM eclipse-temurin:25-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/wit-*.jar app.jar
 
 EXPOSE 8080
 EXPOSE 5433
