@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
     {
         provide: Configuration,
         useFactory: () => new Configuration({
-            basePath: '/api'
+            basePath: ''
         })
     }
   ]
