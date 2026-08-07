@@ -1,0 +1,29 @@
+package se.fusion1013.wit.discord;
+
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+
+public class TrackScheduler extends AudioEventAdapter {
+    private final AudioPlayer player;
+
+    public TrackScheduler(AudioPlayer player) {
+        this.player = player;
+    }
+
+    public void queue(AudioTrack track) {
+        if (!player.startTrack(track, true)) {
+            PlayerManager.getInstance().publishTrackDone();
+        }
+    }
+
+    public void stop() {
+        player.stopTrack();
+    }
+
+    @Override
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+        PlayerManager.getInstance().publishTrackDone();
+    }
+}

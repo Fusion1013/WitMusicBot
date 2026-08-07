@@ -1,0 +1,53 @@
+name: WitMusicBot
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: wit-postgres
+
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      POSTGRES_DB: wit
+      POSTGRES_USER: wit
+      POSTGRES_PASSWORD: wit-password
+
+    ports:
+      - "5434:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ../WitAPI
+
+    container_name: wit-api
+
+    pull_policy: always
+
+    depends_on:
+      - postgres
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/wit
+      SPRING_DATASOURCE_USERNAME: wit
+      SPRING_DATASOURCE_PASSWORD: wit-password
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+
+    ports:
+      - "8080:8080"
+
+  gui:
+    build:
+      context: ../WitGUI
+
+    container_name: wit-gui
+
+    depends_on:
+      - api
+
+    ports:
+      - "4200:80"
+
+volumes:
+  postgres_data:
