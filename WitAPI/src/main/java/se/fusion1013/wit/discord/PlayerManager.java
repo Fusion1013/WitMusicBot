@@ -9,6 +9,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import dev.lavalink.youtube.YoutubeAudioSourceManager;
+import dev.lavalink.youtube.clients.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
@@ -37,8 +38,14 @@ public class PlayerManager implements IAudioPlayer {
 
     private PlayerManager() {
         this.playerManager = new DefaultAudioPlayerManager();
-        var ytSource = new YoutubeAudioSourceManager(true);
-        ytSource.useOauth2(null, false);
+        var ytSource = new YoutubeAudioSourceManager(true, new Music(), new AndroidVr(), new Web(), new WebEmbedded(), new Tv());
+
+        String oauthToken = System.getenv("YOUTUBE_REFRESH_TOKEN");
+
+        if (oauthToken != null && !oauthToken.isBlank()) {
+            ytSource.useOauth2(oauthToken, false);
+        }
+
         playerManager.registerSourceManager(ytSource);
         AudioSourceManagers.registerLocalSource(playerManager); // important for local files!
         this.audioPlayer = playerManager.createPlayer();
