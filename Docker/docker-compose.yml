@@ -33,6 +33,7 @@ services:
       SPRING_DATASOURCE_USERNAME: wit
       SPRING_DATASOURCE_PASSWORD: wit-password
       DISCORD_TOKEN: ${DISCORD_TOKEN}
+      YOUTUBE_REFRESH_TOKEN: ${YOUTUBE_TOKEN}
 
     ports:
       - "8081:8080"
