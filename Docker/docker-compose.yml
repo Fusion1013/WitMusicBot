@@ -35,7 +35,7 @@ services:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
 
     ports:
-      - "8080:8080"
+      - "9090:8080"
 
   gui:
     build:
