@@ -43,3 +43,4 @@ build/
 /WitGUI/node_modules/
 /.idea/
 /.mvn/
+/WitGUI/dist/
