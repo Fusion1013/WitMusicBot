@@ -12,5 +12,6 @@
 export interface YoutubeTrackInfoEntity { 
     link?: string;
     lengthMilliseconds?: number;
+    loadFailures?: number;
 }
 
